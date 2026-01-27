@@ -25,7 +25,7 @@ function step() {
       h++;
     } while (flip === 1);
 
-    if (h > 25) {
+    if (h > 24) {
       if (h > max) max = h;
       out.textContent += `${h} in a row - ${billion} billion ${counter} total flips - Maximum: ${max}\n`;
     }
