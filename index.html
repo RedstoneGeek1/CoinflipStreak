@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
 <body style="margin:0;background:black;color:white;font-family:monospace;">
-<pre id="out" style="height:100vh; overflow-y:auto; font-size:64px; line-height:1.2;">
+<pre id="out" style="height:100vh; overflow-y:auto; font-size:48px; line-height:1.2;">
 Coinflip Simulator
 </pre>
 
 <script>
+// Variables
 let h = 0;
 let counter = 0;
 let billion = 0;
+let max = 30; // initial maximum
+let flip = 1;
 const out = document.getElementById("out");
 
+// Function to run the simulation
 function step() {
   for (let i = 0; i < 1000; i++) {
-    let flip;
+    // Flip until we get a 2
     do {
-      flip = Math.random() < 0.5 ? 1 : 2;
+      flip = Math.random() < 0.5 ? 1 : 2; // 1 or 2
       counter++;
       if (counter === 1_000_000_000) {
         counter = 0;
@@ -24,19 +28,28 @@ function step() {
       h++;
     } while (flip === 1);
 
-    if (h >= 30) {
-      const total = billion * 1_000_000_000 + counter;
-      out.textContent +=
-        `${h} in a row - ${total.toLocaleString()} total flips\n`;
+    // Only print streaks >29
+    if (h > 29) {
+      if (h > max) max = h;
+      out.textContent += `${h} in a row - ${billion} billion ${counter} total flips - Maximum: ${max}\n`;
+
+      // Match your C++ logic: cap h at max
+      if (h > max) h = max;
     }
 
+    // Reset for next streak
     h = 0;
+    flip = 1;
   }
 
+  // Auto-scroll
   out.scrollTop = out.scrollHeight;
+
+  // Continue asynchronously
   setTimeout(step, 0);
 }
 
+// Start the simulation
 step();
 </script>
 </body>
