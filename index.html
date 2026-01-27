@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body style="margin:0;background:black;color:white;font-family:monospace;">
+<pre id="out" style="height:100vh; overflow-y:auto;"></pre>
+
+<script>
+let h = 0;
+let counter = 0;
+let billion = 0;
+const out = document.getElementById("out");
+
+function step() {
+  for (let i = 0; i < 1000; i++) {
+    let flip;
+    do {
+      flip = Math.random() < 0.5 ? 1 : 2;
+      counter++;
+      if (counter === 1_000_000_000) {
+        counter = 0;
+        billion++;
+      }
+      h++;
+    } while (flip === 1);
+
+    if (h >= 30) {
+      const total = billion * 1_000_000_000 + counter;
+      out.textContent +=
+        `${h} in a row - ${total.toLocaleString()} total flips\n`;
+    }
+
+    h = 0;
+  }
+
+  out.scrollTop = out.scrollHeight;
+  setTimeout(step, 0);
+}
+
+step();
+</script>
+</body>
+</html>
