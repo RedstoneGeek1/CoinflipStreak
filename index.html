@@ -28,7 +28,6 @@ function step() {
     if (h > 29) {
       if (h > max) max = h;
       out.textContent += `${h} in a row - ${billion} billion ${counter} total flips - Maximum: ${max}\n`;
-      if (h > max) h = max;
     }
     h = 0;
     flip = 1;
