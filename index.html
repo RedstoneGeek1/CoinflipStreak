@@ -9,7 +9,7 @@ Coinflip Simulator
 let h = 0;
 let counter = 0;
 let billion = 0;
-let max = 20;
+let max = 0;
 let flip = 1;
 const out = document.getElementById("out");
 
@@ -25,9 +25,8 @@ function step() {
       h++;
     } while (flip === 1);
 
-    if (h > 23) {
-      if (h > max) max = h;
-      out.textContent += `${h} in a row - ${billion} billion ${counter} total flips - Maximum: ${max}\n`;
+    if (h > max) {
+    out.textContent += `${h} in a row - ${billion} billion ${counter} total flips - Maximum: ${max}\n`;
     }
     h = 0;
     flip = 1;
